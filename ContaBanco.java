@@ -74,7 +74,7 @@ public class ContaBanco {
         }
     }
     // metodos especiais
-    public ContaBanco(float saldo, boolean status) {
+    public ContaBanco() {
         this.setSaldo(0);
         this.setStatus(false);
     }
