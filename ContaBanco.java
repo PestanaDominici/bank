@@ -10,6 +10,15 @@ public class ContaBanco {
     private float saldo;
     private boolean status;
     // Metodos personalizados
+    public void estadoAtual() {
+        System.out.println("-------------------------------------");
+        System.out.println("Conta: " + this.getNumConta());
+        System.out.println("Tipo: " + this.getTipo());
+        System.out.println("Dono: " + this.getDono());
+        System.out.println("Saldo: " + this.getSaldo());
+        System.out.println("Status: " + this.getStatus());
+    }
+
     public void abrirConta(String t) {
         this.setTipo(t);
         this.setStatus(true);
@@ -18,6 +27,7 @@ public class ContaBanco {
         } else if(Objects.equals(t, "CP")) {
             this.setSaldo(150);
         }
+        System.out.println("Conta aberta com sucesso!");
     }
     public void fecharConta() {
         if (this.getSaldo() > 0) {
@@ -26,19 +36,22 @@ public class ContaBanco {
             System.out.println("ERRO! Você esta em debto!");
         } else {
             this.setStatus(false);
+            System.out.println("Conta fechada com sucesso!");
         }
     }
     public void depositar(float v) {
         if (this.getStatus()) {
             this.setSaldo(getSaldo() + v);
+            System.out.println("Deposito realizado na conta de " + this.getDono());
         } else {
             System.out.println("ERRO! Voce nao tem conta!");
         }
     }
     public void sacar(float v) {
         if (this.getStatus()) {
-            if (this.getSaldo() > v) {
-                this.setSaldo(getSaldo() - v);
+            if (this.getSaldo() >= v) {
+                this.setSaldo(this.getSaldo() - v);
+                System.out.println("Saque realizado na conta de " + this.getDono());
             } else {
                 System.out.println("ERRO! Saldo insuficiente!");
             }
@@ -47,23 +60,17 @@ public class ContaBanco {
         }
     }
     public void pagarMensal() {
-        float v;
+        int v = 0;
         if (Objects.equals(tipo, "CC")) {
             v = 12;
-            if (this.getStatus()) {
-                if (this.getSaldo() > v) {
-                    this.setSaldo(this.getSaldo() - v);
-                }
-            }
         } else if (Objects.equals(tipo, "CP")) {
             v = 20;
-            if (this.getStatus()) {
-                if (this.getSaldo() > v) {
-                    this.setSaldo(this.getSaldo() - v);
-                }
-            }
+        }
+        if (this.getStatus()) {
+            this.setSaldo(this.getSaldo() - v);
+            System.out.println("Mensalidade paga com sucesso por " + this.getDono());
         } else {
-            System.out.println("ERRO! Saldo insuficiente!");
+            System.out.println("ERRO! Voce nao tem conta");
         }
     }
     // metodos especiais
@@ -103,4 +110,3 @@ public class ContaBanco {
     }
 
 }
-
